@@ -1,0 +1,1133 @@
+{
+  "info": {
+    "name": "Workforce Management System",
+    "description": "Complete API collection for Workforce Management & Attendance Tracking System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@test.com\",\n    \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": ["{{base_url}}"],
+              "path": ["login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/logout",
+              "host": ["{{base_url}}"],
+              "path": ["logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employee - Attendance",
+      "item": [
+        {
+          "name": "Get Attendance Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/employee/attendance/status",
+              "host": ["{{base_url}}"],
+              "path": ["employee", "attendance", "status"]
+            }
+          }
+        },
+        {
+          "name": "Check In",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"latitude\": 28.6139,\n    \"longitude\": 77.2090\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/employee/attendance/check-in",
+              "host": ["{{base_url}}"],
+              "path": ["employee", "attendance", "check-in"]
+            }
+          }
+        },
+        {
+          "name": "Check Out",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"latitude\": 28.6139,\n    \"longitude\": 77.2090\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/employee/attendance/check-out",
+              "host": ["{{base_url}}"],
+              "path": ["employee", "attendance", "check-out"]
+            }
+          }
+        },
+        {
+          "name": "Get Attendance History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/employee/attendance/history?from_date=2024-01-01&to_date=2024-01-31",
+              "host": ["{{base_url}}"],
+              "path": ["employee", "attendance", "history"],
+              "query": [
+                {
+                  "key": "from_date",
+                  "value": "2024-01-01",
+                  "description": "Start date (YYYY-MM-DD)"
+                },
+                {
+                  "key": "to_date",
+                  "value": "2024-01-31",
+                  "description": "End date (YYYY-MM-DD)"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employee - Leaves",
+      "item": [
+        {
+          "name": "Get My Leaves",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/employee/leaves",
+              "host": ["{{base_url}}"],
+              "path": ["employee", "leaves"]
+            }
+          }
+        },
+        {
+          "name": "Apply Leave",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"leave_type\": \"Casual Leave\",\n    \"from_date\": \"2024-01-20\",\n    \"to_date\": \"2024-01-22\",\n    \"reason\": \"Personal work\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/employee/leaves/store",
+              "host": ["{{base_url}}"],
+              "path": ["employee", "leaves", "store"]
+            }
+          }
+        },
+        {
+          "name": "Get Leave History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/employee/leaves/history?status=Pending",
+              "host": ["{{base_url}}"],
+              "path": ["employee", "leaves", "history"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Pending",
+                  "description": "Pending, Approved, Rejected"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cancel Leave",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/employee/leaves/1/cancel",
+              "host": ["{{base_url}}"],
+              "path": ["employee", "leaves", "1", "cancel"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Dashboard",
+      "item": [
+        {
+          "name": "Admin Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "dashboard"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Employees",
+      "item": [
+        {
+          "name": "List All Employees",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/employees",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "employees"]
+            }
+          }
+        },
+        {
+          "name": "Create Employee",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@test.com\",\n    \"password\": \"password123\",\n    \"role\": \"Employee\",\n    \"department_id\": 1,\n    \"designation_id\": 2,\n    \"manager_id\": 3,\n    \"phone\": \"9876543210\",\n    \"address\": \"New Delhi\",\n    \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/employees",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "employees"]
+            }
+          }
+        },
+        {
+          "name": "Update Employee",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe Updated\",\n    \"email\": \"john@test.com\",\n    \"role\": \"Employee\",\n    \"department_id\": 1,\n    \"designation_id\": 2,\n    \"manager_id\": 3,\n    \"phone\": \"9876543210\",\n    \"address\": \"New Delhi\",\n    \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/employees/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "employees", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Employee",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/employees/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "employees", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Departments",
+      "item": [
+        {
+          "name": "List Departments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/departments",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "departments"]
+            }
+          }
+        },
+        {
+          "name": "Create Department",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"IT Department\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/departments",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "departments"]
+            }
+          }
+        },
+        {
+          "name": "Update Department",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"IT Department Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/departments/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "departments", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Department",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/departments/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "departments", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Designations",
+      "item": [
+        {
+          "name": "List Designations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/designations",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "designations"]
+            }
+          }
+        },
+        {
+          "name": "Create Designation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Senior Developer\",\n    \"department_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/designations",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "designations"]
+            }
+          }
+        },
+        {
+          "name": "Get Designations by Department",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/designations/by-department/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "designations", "by-department", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Designation",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Senior Developer Updated\",\n    \"department_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/designations/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "designations", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Designation",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/designations/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "designations", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Leaves",
+      "item": [
+        {
+          "name": "List All Leaves",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/leaves?status=Pending",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "leaves"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Pending"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "View Leave Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/leaves/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "leaves", "1"]
+            }
+          }
+        },
+        {
+          "name": "Approve Leave",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/leaves/1/approve",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "leaves", "1", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Reject Leave",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"rejection_reason\": \"Insufficient leave balance\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/leaves/1/reject",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "leaves", "1", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Bulk Approve Leaves",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"leave_ids\": [1, 2, 3]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/leaves/bulk-approve",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "leaves", "bulk-approve"]
+            }
+          }
+        },
+        {
+          "name": "Bulk Reject Leaves",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"leave_ids\": [1, 2, 3],\n    \"rejection_reason\": \"Insufficient balance\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/leaves/bulk-reject",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "leaves", "bulk-reject"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin - Attendance",
+      "item": [
+        {
+          "name": "List All Attendance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/attendance?from_date=2024-01-01&to_date=2024-01-31",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "attendance"],
+              "query": [
+                {
+                  "key": "from_date",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "to_date",
+                  "value": "2024-01-31"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "View Attendance Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/attendance/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "attendance", "1"]
+            }
+          }
+        },
+        {
+          "name": "Export Attendance Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/attendance/export?from_date=2024-01-01&to_date=2024-01-31",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "attendance", "export"],
+              "query": [
+                {
+                  "key": "from_date",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "to_date",
+                  "value": "2024-01-31"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Manager - Dashboard",
+      "item": [
+        {
+          "name": "Manager Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/manager/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "dashboard"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Manager - Team",
+      "item": [
+        {
+          "name": "List Team Members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/manager/team",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "team"]
+            }
+          }
+        },
+        {
+          "name": "View Team Member Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/manager/team/1",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "team", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Manager - Leaves",
+      "item": [
+        {
+          "name": "List Team Leaves",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/manager/leaves?status=Pending",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "leaves"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Pending"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Approve Team Leave",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/manager/leaves/1/approve",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "leaves", "1", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Reject Team Leave",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"rejection_reason\": \"Manager not available\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/manager/leaves/1/reject",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "leaves", "1", "reject"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Manager - Attendance",
+      "item": [
+        {
+          "name": "List Team Attendance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/manager/attendance?from_date=2024-01-01&to_date=2024-01-31",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "attendance"],
+              "query": [
+                {
+                  "key": "from_date",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "to_date",
+                  "value": "2024-01-31"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "View Team Attendance Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/manager/attendance/1",
+              "host": ["{{base_url}}"],
+              "path": ["manager", "attendance", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/profile",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Admin User\",\n    \"email\": \"admin@test.com\",\n    \"phone\": \"9876543210\",\n    \"address\": \"New Delhi\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/profile/update",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "profile", "update"]
+            }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrf_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"current_password\": \"password\",\n    \"password\": \"newpassword123\",\n    \"password_confirmation\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/profile/update-password",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "profile", "update-password"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

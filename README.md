@@ -132,7 +132,7 @@ Check-in with location capture (latitude, longitude)
 
 Real-time working timer
 
-Timer persists after page refresh using localStorage
+Timer persists after page refresh by fetching the check_in time from database
 
 Check-out with location capture
 
